@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C27D04411F9557D700D52D79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C27D04401F9557D700D52D79 /* main.cpp */; };
+		C2A356871F9BF89C0067B241 /* Vision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A356851F9BF89C0067B241 /* Vision.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		C27D043D1F9557D700D52D79 /* RubicQube */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RubicQube; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27D04401F9557D700D52D79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		C2A356851F9BF89C0067B241 /* Vision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vision.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				C27D04401F9557D700D52D79 /* main.cpp */,
+				C2A356851F9BF89C0067B241 /* Vision.cpp */,
 			);
 			path = RubicQube;
 			sourceTree = "<group>";
@@ -120,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C27D04411F9557D700D52D79 /* main.cpp in Sources */,
+				C2A356871F9BF89C0067B241 /* Vision.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +344,7 @@
 				C27D04461F9557D700D52D79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
