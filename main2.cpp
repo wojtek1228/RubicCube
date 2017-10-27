@@ -229,7 +229,7 @@ void calculateAverageColors()
 
 void groupColors()
 {
-    cout<<"dupa";
+ 
 }
 
 void projectPointsOnPlane()
@@ -259,7 +259,7 @@ void projectPointsOnPlane()
 }
 void analyseCube()
 {
-    cout<<"elo";
+    
     
     calculateAverageColors();
     pom_colors_tab = colors_tab[0][0];
