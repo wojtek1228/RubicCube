@@ -16,7 +16,8 @@ int select_flag;
 int state=0;
 vector<Rect>rectangulars_tab[6];
 vector<Scalar>colors_tab[6];
-Scalar pom_colors_tab;
+vector<Scalar>pom_colors_container;
+vector<Scalar>groups_of_colors[6];
 Mat imgs[6];
 int side_index = 0;
 
@@ -218,18 +219,66 @@ void calculateAverageColors()
     {
         for(int j = 0; j< rectangulars_tab[i].size(); j++)
         {
-            image = imgs[6](rectangulars_tab[i][j]);
+            image = imgs[i](rectangulars_tab[i][j]);
             color = mean(image);
+            color[3] = i*9+j;
             colors_tab[i].push_back(color);
+            pom_colors_container.push_back(color);
         }
         
     }
    
 }
 
+double calc_dist(Scalar point1, Scalar point2)
+{
+    return sqrt((point1[0]-point2[0])*(point1[0]-point2[0]) + (point1[2]-point2[2])*(point1[2]-point2[2]));
+}
+
+Scalar find_next_element()
+{
+    Scalar coord_of_elem;
+    for(int i = 0; i<6; i++)
+    {
+        if(colors_tab[i].size()>0)
+        {
+           return colors_tab[6][0];
+        }
+    }
+    return coord_of_elem;
+}
+
 void groupColors()
 {
- 
+    int dist;
+    int min_dist;
+    int min_index;
+    Scalar point1, point2;
+    for (int group_index = 0; group_index<6; group_index++)
+    {
+        point1 = pom_colors_container[0];
+        groups_of_colors[group_index].push_back(point1);
+        pom_colors_container.erase(pom_colors_container.begin());
+        
+        while(groups_of_colors[group_index].size()<8)
+        {
+            min_dist = calc_dist(point1, pom_colors_container[0]);
+            min_index = 0;
+            for(int i = 1; i < pom_colors_container.size(); i++)
+            {
+                dist = calc_dist(point1, pom_colors_container[i]);
+                if(dist<= min_dist)
+                {
+                    min_dist = dist;
+                    min_index = i;
+                }
+            }
+            groups_of_colors[group_index].push_back(pom_colors_container[min_index]);
+            pom_colors_container.erase(pom_colors_container.begin()+min_index);
+        }
+    }
+    
+
 }
 
 void projectPointsOnPlane()
@@ -248,10 +297,10 @@ void projectPointsOnPlane()
             double m[1][3] = {{color[2], color[1], color[0]}};
             Mat color_mat = Mat(1, 3, CV_64F, m);
             color_mat = color_mat*rotZ*rotX;
-            color[0] = color_mat.at<double>(1,0);
-            color[1] = color_mat.at<double>(1,1);
-            color[2] = color_mat.at<double>(1,2);
-            colors_tab[i][j] = color;
+            color[0] = color_mat.at<double>(0,0);
+            color[1] = color_mat.at<double>(0,1);
+            color[2] = color_mat.at<double>(0,2);
+       
         }
     }
     
@@ -262,7 +311,7 @@ void analyseCube()
     
     
     calculateAverageColors();
-    pom_colors_tab = colors_tab[0][0];
+
     projectPointsOnPlane();
     groupColors();
     
