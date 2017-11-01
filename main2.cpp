@@ -20,6 +20,7 @@ vector<Scalar>pom_colors_container;
 vector<Scalar>groups_of_colors[6];
 Mat imgs[6];
 int side_index = 0;
+int cube_result[6][9];
 
 
 void saveAreasToFile()
@@ -33,6 +34,21 @@ void saveAreasToFile()
     }
     myfile.close();
 }
+
+void saveData(String name)
+{
+    ofstream myfile;
+    string dataFileName = name;
+    myfile.open (dataFileName);
+    for(int i= 0; i<pom_colors_container.size(); i++)
+    {
+        Scalar point = pom_colors_container[i];
+        myfile<<point[0]<<" "<<point[1]<<" "<<point[2]<<endl;
+    }
+    myfile.close();
+
+}
+
 
 vector<Rect> readAreasFromFile(int index)
 {
@@ -149,8 +165,12 @@ void showAreas()
     state = 4;
 }
 
+
+
 void show_result()
 {
+    for(int j = 0; j<6; j++)
+    {
     for(int i= 0; i<3; i++)
     {
         Rect rect = Rect(i*100,0,100,100);
@@ -167,7 +187,7 @@ void show_result()
         Rect rect = Rect(i*100,200,100,100);
         rectangle(res_img, rect, colors_tab[side_index][i+6],CV_FILLED);
     }
-    
+    }
     //cout<<colors.size();
     imshow("image3",res_img);
     int k = (waitKey(10) & 0xFF);
@@ -175,6 +195,7 @@ void show_result()
     {
         state = 1;
     }
+    
     
 
 }
@@ -184,37 +205,13 @@ void testMode()
     imgs[side_index] = readImage(side_index);
     rectangulars_tab[side_index] = readAreasFromFile(side_index);
     side_index++;
-    cout<<"jestem";
     if(side_index ==6) {state = 4; }
-}
-
-Scalar mean2(Mat m)
-{
-    Scalar color;
-    int r= 0;
-    int g = 0;
-    int b = 0;
-    for(int i=0; i<m.rows; i++)
-    {
-        for(int j=0; j<m.cols; j++)
-        {
-            color = m.at<double>(i,j);
-            r = r+color[2];
-            b = b+color[1];
-            g = g+color[0];
-        }
-    }
-    color[0] = r/(m.rows*m.cols);
-    color[1] = g/(m.rows*m.cols);
-    color[2] = b/(m.rows*m.cols);
-    return color;
 }
 
 void calculateAverageColors()
 {
     Mat image;
     Scalar color;
-     cout<<"byłęm";
     for(int i = 0; i<6; i++)
     {
         for(int j = 0; j< rectangulars_tab[i].size(); j++)
@@ -223,7 +220,6 @@ void calculateAverageColors()
             color = mean(image);
             color[3] = i*9+j;
             colors_tab[i].push_back(color);
-            pom_colors_container.push_back(color);
         }
         
     }
@@ -235,17 +231,13 @@ double calc_dist(Scalar point1, Scalar point2)
     return sqrt((point1[0]-point2[0])*(point1[0]-point2[0]) + (point1[2]-point2[2])*(point1[2]-point2[2]));
 }
 
-Scalar find_next_element()
+
+void writeToResultTable(Scalar point,int group_num)
 {
-    Scalar coord_of_elem;
-    for(int i = 0; i<6; i++)
-    {
-        if(colors_tab[i].size()>0)
-        {
-           return colors_tab[6][0];
-        }
-    }
-    return coord_of_elem;
+    int side_number = point[3]/9;
+    int elem_number = int(point[3])%9;
+    if(side_number*9+elem_number != point[3]) cout<<"ERROR"<<endl;
+    cube_result[side_number][elem_number] = group_num;
 }
 
 void groupColors()
@@ -258,9 +250,10 @@ void groupColors()
     {
         point1 = pom_colors_container[0];
         groups_of_colors[group_index].push_back(point1);
+        writeToResultTable(point1,group_index);
         pom_colors_container.erase(pom_colors_container.begin());
         
-        while(groups_of_colors[group_index].size()<8)
+        while(groups_of_colors[group_index].size()<9)
         {
             min_dist = calc_dist(point1, pom_colors_container[0]);
             min_index = 0;
@@ -273,6 +266,7 @@ void groupColors()
                     min_index = i;
                 }
             }
+            writeToResultTable(pom_colors_container[min_index],group_index);
             groups_of_colors[group_index].push_back(pom_colors_container[min_index]);
             pom_colors_container.erase(pom_colors_container.begin()+min_index);
         }
@@ -300,21 +294,34 @@ void projectPointsOnPlane()
             color[0] = color_mat.at<double>(0,0);
             color[1] = color_mat.at<double>(0,1);
             color[2] = color_mat.at<double>(0,2);
+            pom_colors_container.push_back(color);
+
        
         }
     }
     
 
 }
+
 void analyseCube()
 {
     
     
     calculateAverageColors();
-
+  // saveData("przed");
     projectPointsOnPlane();
+ //saveData("po");
     groupColors();
-    
+    for(int i = 0; i<6; i++)
+    {
+        for(int j = 0; j< 9; j++)
+        {
+            if(j%3==0) cout<<endl;
+            cout<<cube_result[i][j]<<"  ";
+            
+        }
+        cout<<endl<<"-------"<<endl;
+    }
 }
 
 
