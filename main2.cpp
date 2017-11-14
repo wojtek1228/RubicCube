@@ -1,8 +1,12 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
-#include <types.hpp>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "search.h"
+
 
 using namespace cv;
 using namespace std;
@@ -10,7 +14,7 @@ using namespace std;
 Point point1, point2;
 int drag = 0;
 Rect rect;
-Mat img, roiImg,img2;
+Mat img,img2;
 Mat res_img = Mat(Size(300,300),CV_8UC3);
 int select_flag;
 int state=0;
@@ -19,8 +23,21 @@ vector<Scalar>colors_tab[6];
 vector<Scalar>pom_colors_container;
 vector<Scalar>groups_of_colors[6];
 Mat imgs[6];
+Mat res[6];
 int side_index = 0;
-int cube_result[6][9];
+char colorToLetterTab[6];
+string solverInput;
+Mat cube_result[6];
+Mat m(3,3, CV_32SC1);
+
+void init()
+{
+    for(int i = 0; i<6; i++)
+    {
+        Mat m(3,3, CV_32SC1);
+        cube_result[i]=m;
+    }
+}
 
 
 void saveAreasToFile()
@@ -48,6 +65,8 @@ void saveData(String name)
     myfile.close();
 
 }
+
+
 
 
 vector<Rect> readAreasFromFile(int index)
@@ -97,7 +116,6 @@ void mouseHandler(int event, int x, int y, int flags, void* param)
         point2 = Point(x, y);
         rect = Rect(point1.x,point1.y,x-point1.x,y-point1.y);
         drag = 0;
-        roiImg = img(rect);
         rectangulars_tab[side_index].push_back(rect);
     }
     
@@ -120,6 +138,7 @@ void camera(VideoCapture cap)
     int k = (waitKey(10) & 0xFF);
     if (k=='n')
     {
+        img2 = img.clone();
         state  = 2;
     }
     
@@ -145,7 +164,7 @@ void calibration()
     {
         saveImage();
         saveAreasToFile();
-        imgs[side_index] = img;
+        imgs[side_index] = img2;
         side_index++;
         if (side_index < 6) state  = 1;
         else state = 4;
@@ -220,6 +239,7 @@ void calculateAverageColors()
             color = mean(image);
             color[3] = i*9+j;
             colors_tab[i].push_back(color);
+            pom_colors_container.push_back(color);
         }
         
     }
@@ -237,7 +257,11 @@ void writeToResultTable(Scalar point,int group_num)
     int side_number = point[3]/9;
     int elem_number = int(point[3])%9;
     if(side_number*9+elem_number != point[3]) cout<<"ERROR"<<endl;
-    cube_result[side_number][elem_number] = group_num;
+    cube_result[side_number].at<int>(elem_number/3,elem_number%3) = group_num;
+    
+    
+   // cube_result[side_number][elem_number] = group_num;
+    
 }
 
 void groupColors()
@@ -270,6 +294,7 @@ void groupColors()
             groups_of_colors[group_index].push_back(pom_colors_container[min_index]);
             pom_colors_container.erase(pom_colors_container.begin()+min_index);
         }
+     
     }
     
 
@@ -277,7 +302,7 @@ void groupColors()
 
 void projectPointsOnPlane()
 {
-   
+    pom_colors_container.clear();
     Scalar color;
     double r_x[3][3] = {{1, 0, 0},{0, cos(3.14/4), -sin(3.14/4)},{0, sin(3.14/4), cos(3.14/4)}};
     double r_z[3][3] = {{cos(-3.14/4), -sin(-3.14/4), 0},{sin(-3.14/4), cos(-3.14/4), 0},{0, 0, 1}};
@@ -303,25 +328,131 @@ void projectPointsOnPlane()
 
 }
 
-void analyseCube()
+void showResult()
 {
-    
-    
-    calculateAverageColors();
-  // saveData("przed");
-    projectPointsOnPlane();
- //saveData("po");
-    groupColors();
     for(int i = 0; i<6; i++)
     {
-        for(int j = 0; j< 9; j++)
+        for(int j = 0; j < 9; j++)
         {
             if(j%3==0) cout<<endl;
-            cout<<cube_result[i][j]<<"  ";
+            cout<<cube_result[i].at<int>(j/3,j%3)<<"  ";
             
         }
         cout<<endl<<"-------"<<endl;
     }
+
+}
+
+void generateSolverInput()
+{
+    colorToLetterTab[cube_result[0].at<int>(1,1)] = 'L';
+    colorToLetterTab[cube_result[1].at<int>(1,1)] = 'D';
+    colorToLetterTab[cube_result[2].at<int>(1,1)] = 'R';
+    colorToLetterTab[cube_result[3].at<int>(1,1)] = 'B';
+    colorToLetterTab[cube_result[4].at<int>(1,1)] = 'U';
+    colorToLetterTab[cube_result[5].at<int>(1,1)] = 'F';
+
+    
+    solverInput = "";
+   
+    //U
+    for(int j = 0; j<3; j++)
+        for(int k = 0; k<3; k++)
+        {
+            solverInput += colorToLetterTab[cube_result[4].at<int>(j,k)];
+        }
+    
+    //R
+    for(int j = 0; j<3; j++)
+        for(int k = 0; k<3; k++)
+        {
+            solverInput += colorToLetterTab[cube_result[2].at<int>(j,k)];
+        }
+    
+    //F
+    for(int j = 0; j<3; j++)
+        for(int k = 0; k<3; k++)
+        {
+            solverInput += colorToLetterTab[cube_result[5].at<int>(j,k)];
+        }
+    
+    //D
+    for(int j = 0; j<3; j++)
+        for(int k = 0; k<3; k++)
+        {
+            solverInput += colorToLetterTab[cube_result[1].at<int>(j,k)];
+        }
+    
+    //L
+    for(int j = 0; j<3; j++)
+        for(int k = 0; k<3; k++)
+        {
+            solverInput += colorToLetterTab[cube_result[0].at<int>(j,k)];
+        }
+    
+    //B
+    for(int j = 0; j<3; j++)
+        for(int k = 0; k<3; k++)
+        {
+            solverInput += colorToLetterTab[cube_result[3].at<int>(j,k)];
+        }
+    
+    
+}
+
+void rotateCubeResults()
+{
+    Mat pom1;
+    rotate(cube_result[1], pom1, ROTATE_90_COUNTERCLOCKWISE);
+    cube_result[1] = pom1;  //D
+    
+    Mat pom2;
+    rotate(cube_result[3], pom2, ROTATE_180);
+    cube_result[3] = pom2;   //B
+    
+    Mat pom3;
+    rotate(cube_result[5], pom3, ROTATE_180);
+    cube_result[5] = pom3;   //F
+}
+
+
+
+
+
+void analyseCube()
+{
+    calculateAverageColors();
+    //saveData("przed1");
+    projectPointsOnPlane();
+    //saveData("po1");
+    groupColors();
+    //showResult();
+    //cout<<"xxxxxxxxxxxxxxxxxxxx"<<endl;
+    rotateCubeResults();
+    showResult();
+    generateSolverInput();
+    cout<<solverInput<<endl;
+    state = 5;
+}
+
+void solveCube()
+{
+    char *facelets;
+    strcpy(facelets, solverInput.c_str());
+    char *sol = solution(
+                         facelets,
+                         24,
+                         1000,
+                         0,
+                         "cache"
+                         );
+    if (sol == NULL) {
+        puts("Unsolvable cube!");
+
+    }
+    puts(sol);
+    free(sol);
+    state = 6;
 }
 
 
@@ -330,7 +461,7 @@ void analyseCube()
 int main()
 {
     
-    
+    init();
     VideoCapture cap = VideoCapture(0); /* Start webcam */
     cap >> img; /* get image(Mat) */
     imshow("image", img);
@@ -338,7 +469,7 @@ int main()
     cin>>state;
     setMouseCallback("image", mouseHandler, NULL);
     
-    while(state!=5)
+    while(state!=6)
     {
         switch(state)
         {
@@ -346,10 +477,12 @@ int main()
             case 2: {calibration(); break;}
             case 3: {testMode(); break;}
             case 4: {analyseCube();break;}
+            case 5: {solveCube();break;}
                 
         }
         
     }
-    cin>>state;
+  
+    
     return 0;
 }

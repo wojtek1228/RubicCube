@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C23663671FA111C00063A06E /* main2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C23663651FA111C00063A06E /* main2.cpp */; };
+		C24450EE1FB0AD520082063F /* search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C24450EA1FB0AD520082063F /* search.cpp */; };
+		C24450EF1FB0AD520082063F /* facecube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C24450EB1FB0AD520082063F /* facecube.cpp */; };
+		C24450F01FB0AD520082063F /* cubiecube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C24450EC1FB0AD520082063F /* cubiecube.cpp */; };
+		C24450F11FB0AD520082063F /* coordcube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C24450ED1FB0AD520082063F /* coordcube.cpp */; };
 		C27D04411F9557D700D52D79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C27D04401F9557D700D52D79 /* main.cpp */; };
 		C2A356871F9BF89C0067B241 /* Vision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A356851F9BF89C0067B241 /* Vision.cpp */; };
 /* End PBXBuildFile section */
@@ -26,6 +30,18 @@
 
 /* Begin PBXFileReference section */
 		C23663651FA111C00063A06E /* main2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main2.cpp; path = ../main2.cpp; sourceTree = "<group>"; };
+		C24450EA1FB0AD520082063F /* search.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search.cpp; sourceTree = "<group>"; };
+		C24450EB1FB0AD520082063F /* facecube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facecube.cpp; sourceTree = "<group>"; };
+		C24450EC1FB0AD520082063F /* cubiecube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubiecube.cpp; sourceTree = "<group>"; };
+		C24450ED1FB0AD520082063F /* coordcube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = coordcube.cpp; sourceTree = "<group>"; };
+		C24450F21FB0AD6D0082063F /* search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = search.h; sourceTree = "<group>"; };
+		C24450F31FB0AD6D0082063F /* facelet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = facelet.h; sourceTree = "<group>"; };
+		C24450F41FB0AD6D0082063F /* facecube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = facecube.h; sourceTree = "<group>"; };
+		C24450F51FB0AD6D0082063F /* edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edge.h; sourceTree = "<group>"; };
+		C24450F61FB0AD6D0082063F /* cubiecube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubiecube.h; sourceTree = "<group>"; };
+		C24450F71FB0AD6D0082063F /* corner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = corner.h; sourceTree = "<group>"; };
+		C24450F81FB0AD6D0082063F /* coordcube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coordcube.h; sourceTree = "<group>"; };
+		C24450F91FB0AD6D0082063F /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
 		C27D043D1F9557D700D52D79 /* RubicQube */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RubicQube; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27D04401F9557D700D52D79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = RubicQube/main.cpp; sourceTree = "<group>"; };
 		C2A356851F9BF89C0067B241 /* Vision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vision.cpp; path = RubicQube/Vision.cpp; sourceTree = "<group>"; };
@@ -71,6 +87,18 @@
 		C27D043F1F9557D700D52D79 /* RubicQube */ = {
 			isa = PBXGroup;
 			children = (
+				C24450F21FB0AD6D0082063F /* search.h */,
+				C24450F31FB0AD6D0082063F /* facelet.h */,
+				C24450F41FB0AD6D0082063F /* facecube.h */,
+				C24450F51FB0AD6D0082063F /* edge.h */,
+				C24450F61FB0AD6D0082063F /* cubiecube.h */,
+				C24450F71FB0AD6D0082063F /* corner.h */,
+				C24450F81FB0AD6D0082063F /* coordcube.h */,
+				C24450F91FB0AD6D0082063F /* color.h */,
+				C24450EA1FB0AD520082063F /* search.cpp */,
+				C24450EB1FB0AD520082063F /* facecube.cpp */,
+				C24450EC1FB0AD520082063F /* cubiecube.cpp */,
+				C24450ED1FB0AD520082063F /* coordcube.cpp */,
 				C23663651FA111C00063A06E /* main2.cpp */,
 			);
 			path = RubicQube;
@@ -134,8 +162,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C23663671FA111C00063A06E /* main2.cpp in Sources */,
+				C24450F11FB0AD520082063F /* coordcube.cpp in Sources */,
+				C24450F01FB0AD520082063F /* cubiecube.cpp in Sources */,
+				C24450EE1FB0AD520082063F /* search.cpp in Sources */,
 				C27D04411F9557D700D52D79 /* main.cpp in Sources */,
 				C2A356871F9BF89C0067B241 /* Vision.cpp in Sources */,
+				C24450EF1FB0AD520082063F /* facecube.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,8 +266,9 @@
 		C27D04451F9557D700D52D79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv/3.3.0_3/**";
-				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv/3.3.0_3/**";
+				CLANG_CXX_LIBRARY = "libc++";
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = (
 					"-lopencv_stitching",
 					"-lopencv_superres",
@@ -287,8 +320,9 @@
 		C27D04461F9557D700D52D79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv/3.3.0_3/**";
-				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv/3.3.0_3/**";
+				CLANG_CXX_LIBRARY = "libc++";
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = (
 					"-lopencv_stitching",
 					"-lopencv_superres",
