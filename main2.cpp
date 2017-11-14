@@ -6,6 +6,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "search.h"
+#include "solve.h"
+
 
 
 using namespace cv;
@@ -27,8 +29,12 @@ Mat res[6];
 int side_index = 0;
 char colorToLetterTab[6];
 string solverInput;
+string movesForRobot;
 Mat cube_result[6];
 Mat m(3,3, CV_32SC1);
+vector<int>programSequence;
+int digOUT[] = {15,16,1,4,5,27,28,29};   // 8 10 12 16 18 36 38 40
+int digIN[] = {0,2,3,21,22,23,24,25}; // 11 13 15 29 31 33 35 37
 
 void init()
 {
@@ -39,6 +45,20 @@ void init()
     }
 }
 
+/*
+void initGPIO()
+{
+    wiringPiSetup();
+    
+    for(int i = 0; i<8; i++)
+    {
+        pinMode(digIN[i],INPUT);
+        pinMode(digOUT[i],OUTPUT);
+        digitalWrite(digOUT[i],LOW);
+    }
+    
+}
+*/
 
 void saveAreasToFile()
 {
@@ -437,7 +457,8 @@ void analyseCube()
 
 void solveCube()
 {
-    char *facelets;
+    char pom[64];
+    char *facelets = pom;
     strcpy(facelets, solverInput.c_str());
     char *sol = solution(
                          facelets,
@@ -448,20 +469,64 @@ void solveCube()
                          );
     if (sol == NULL) {
         puts("Unsolvable cube!");
-
     }
-    puts(sol);
-    free(sol);
+    else
+    {
+        movesForRobot = translateForRobot(sol);
+        cout<<movesForRobot;
+        free(sol);
+    }
     state = 6;
 }
 
+void translateMovesToPins()
+{
 
+    
+    for(int i = 0; i<movesForRobot.size(); i++)
+    {
+        string temp ="";
+        while(movesForRobot[i] != ' ')
+        {
+            temp +=movesForRobot[i];
+            i++;
+        }
+        
+        if(temp == "X") programSequence.push_back(1);
+        else if(temp == "x") programSequence.push_back(2);
+        else if(temp == "Y") programSequence.push_back(3);
+        else if(temp == "y") programSequence.push_back(4);
+        else if(temp == "U") programSequence.push_back(5);
+        else if(temp == "U2") programSequence.push_back(6);
+        else if(temp == "U'") programSequence.push_back(7);
+        else if(temp == "D") programSequence.push_back(8);
+        else if(temp == "D2") programSequence.push_back(9);
+        else if(temp == "D'") programSequence.push_back(10);
+    }
+}
+
+/*
+void sendProgramNumberToRobot(int number)
+{
+    string binary = std::bitset<4>(number).to_string();
+    
+    for(int i = 0; i<4; i++)
+    {
+        if(binary[i]=='1') digitalWrite(digOUT[i],HIGH);
+          else
+              digitalWrite(digOUT[i],LOW);
+    }
+    
+}
+
+*/
 
 
 int main()
 {
     
     init();
+  //  initGPIO();
     VideoCapture cap = VideoCapture(0); /* Start webcam */
     cap >> img; /* get image(Mat) */
     imshow("image", img);
@@ -480,9 +545,7 @@ int main()
             case 5: {solveCube();break;}
                 
         }
-        
     }
-  
-    
+    translateMovesToPins();
     return 0;
 }

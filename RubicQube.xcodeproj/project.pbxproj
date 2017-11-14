@@ -12,6 +12,7 @@
 		C24450EF1FB0AD520082063F /* facecube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C24450EB1FB0AD520082063F /* facecube.cpp */; };
 		C24450F01FB0AD520082063F /* cubiecube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C24450EC1FB0AD520082063F /* cubiecube.cpp */; };
 		C24450F11FB0AD520082063F /* coordcube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C24450ED1FB0AD520082063F /* coordcube.cpp */; };
+		C249D7391FBBA345007A4611 /* solve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C249D7381FBBA345007A4611 /* solve.cpp */; };
 		C27D04411F9557D700D52D79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C27D04401F9557D700D52D79 /* main.cpp */; };
 		C2A356871F9BF89C0067B241 /* Vision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A356851F9BF89C0067B241 /* Vision.cpp */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,8 @@
 		C24450F71FB0AD6D0082063F /* corner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = corner.h; sourceTree = "<group>"; };
 		C24450F81FB0AD6D0082063F /* coordcube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coordcube.h; sourceTree = "<group>"; };
 		C24450F91FB0AD6D0082063F /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
+		C249D7381FBBA345007A4611 /* solve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = solve.cpp; sourceTree = "<group>"; };
+		C249D73B1FBBA4C0007A4611 /* solve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = solve.h; sourceTree = "<group>"; };
 		C27D043D1F9557D700D52D79 /* RubicQube */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RubicQube; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27D04401F9557D700D52D79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = RubicQube/main.cpp; sourceTree = "<group>"; };
 		C2A356851F9BF89C0067B241 /* Vision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vision.cpp; path = RubicQube/Vision.cpp; sourceTree = "<group>"; };
@@ -87,6 +90,7 @@
 		C27D043F1F9557D700D52D79 /* RubicQube */ = {
 			isa = PBXGroup;
 			children = (
+				C249D7381FBBA345007A4611 /* solve.cpp */,
 				C24450F21FB0AD6D0082063F /* search.h */,
 				C24450F31FB0AD6D0082063F /* facelet.h */,
 				C24450F41FB0AD6D0082063F /* facecube.h */,
@@ -100,6 +104,7 @@
 				C24450EC1FB0AD520082063F /* cubiecube.cpp */,
 				C24450ED1FB0AD520082063F /* coordcube.cpp */,
 				C23663651FA111C00063A06E /* main2.cpp */,
+				C249D73B1FBBA4C0007A4611 /* solve.h */,
 			);
 			path = RubicQube;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 				C23663671FA111C00063A06E /* main2.cpp in Sources */,
 				C24450F11FB0AD520082063F /* coordcube.cpp in Sources */,
 				C24450F01FB0AD520082063F /* cubiecube.cpp in Sources */,
+				C249D7391FBBA345007A4611 /* solve.cpp in Sources */,
 				C24450EE1FB0AD520082063F /* search.cpp in Sources */,
 				C27D04411F9557D700D52D79 /* main.cpp in Sources */,
 				C2A356871F9BF89C0067B241 /* Vision.cpp in Sources */,
