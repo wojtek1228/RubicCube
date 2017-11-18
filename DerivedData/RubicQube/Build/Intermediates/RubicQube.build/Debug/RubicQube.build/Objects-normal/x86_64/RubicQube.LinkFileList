@@ -1,7 +1,11 @@
 /Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/main.o
+/Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/fileservice.o
+/Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/colorsalgorithm.o
 /Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/coordcube.o
 /Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/cubiecube.o
-/Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/solve.o
+/Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/debugservice.o
+/Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/GPIOservice.o
+/Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/solver.o
 /Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/search.o
 /Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/Vision.o
 /Users/Wojciech/Desktop/RubicQube/DerivedData/RubicQube/Build/Intermediates/RubicQube.build/Debug/RubicQube.build/Objects-normal/x86_64/facecube.o

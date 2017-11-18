@@ -35,5 +35,8 @@ dependencies: /Users/Wojciech/Desktop/RubicQube/RubicQube/main.cpp \
   /usr/local/include/opencv2/highgui/highgui_c.h \
   /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
   /usr/local/include/opencv2/videoio/videoio_c.h \
+  /Users/Wojciech/Desktop/RubicQube/RubicQube/solver.h \
+  /Users/Wojciech/Desktop/RubicQube/RubicQube/colorsalgorithm.h \
+  /Users/Wojciech/Desktop/RubicQube/RubicQube/debugservice.h \
   /Users/Wojciech/Desktop/RubicQube/RubicQube/search.h \
-  /Users/Wojciech/Desktop/RubicQube/RubicQube/solve.h
+  /Users/Wojciech/Desktop/RubicQube/RubicQube/fileservice.h
